@@ -1,5 +1,5 @@
 import { Events } from "../events"
-import { waitForEvent } from '../utils'
+// import { waitForEvent } from '../utils'
 
 export default class BaseStreamController {
   constructor(hls) {
@@ -7,10 +7,10 @@ export default class BaseStreamController {
   }
 
   async _doFragLoad(fragment) {
-    console.log('doFragLoad', fragment)
-    this.hls.trigger(Events.FRAG_LOADING, { frag: fragment })
+    // this.hls.trigger(Events.FRAG_LOADING, { frag: fragment })
     const segmentData = await fetch(fragment.url).then(buf => buf.arrayBuffer())
-    this.hls.trigger(Events.FRAG_LOADED, segmentData)
+    this._handleFragmentLoadProgress(segmentData)
+    // this.hls.trigger(Events.FRAG_LOADED, segmentData)
     // await waitForEvent(sourceBuffer, 'updateend')
   }
 
