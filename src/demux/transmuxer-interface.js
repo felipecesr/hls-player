@@ -9,8 +9,11 @@ export default class TransmuxerInterface {
     this.transmuxer.on('data', segment => this.onTransmuxComplete(segment))
   }
 
-  async push(segmentData) {
-    this.transmuxer.push(new Uint8Array(segmentData))
+  push(segmentData) {
+    this.transmuxer.push(segmentData)
+  }
+
+  flush() {
     this.transmuxer.flush()
   }
 }
