@@ -1,4 +1,5 @@
 import { Events } from '../events'
+import { parsePlaylist } from './m3u8-parser'
 
 export default class PlaylistLoader {
   constructor(hls) {
@@ -14,6 +15,6 @@ export default class PlaylistLoader {
     const { url } = data;
     fetch(url)
       .then(response => response.text())
-      .then(text => console.log(text));
+      .then(text => console.log(parsePlaylist(text, '/video')));
   }
 }
