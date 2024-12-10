@@ -1,4 +1,4 @@
-import { Events } from './events'
+import { Events } from '../events'
 
 export default class MSEMediaController {
 	constructor(hls) {
