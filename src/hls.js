@@ -20,4 +20,8 @@ export default class Hls {
   loadSource(url) {
     this.trigger(Events.MANIFEST_LOADING, { url });
   }
+
+  attachMedia(media) {
+    this.trigger(Events.MEDIA_ATTACHING, { media })
+  }
 }
