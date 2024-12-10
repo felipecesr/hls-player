@@ -11,4 +11,8 @@ export const Events = {
    * fired to signal that a manifest loading starts - data: { url : manifestURL }
    */
   MANIFEST_LOADING: 'hlsManifestLoading',
+  /**
+   * fired when a level playlist loading finishes - data: { details : levelDetails object, level : id of loaded level, stats : LoaderStats }
+   */
+  LEVEL_LOADED: 'hlsLevelLoaded',
 }

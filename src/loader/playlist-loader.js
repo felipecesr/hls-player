@@ -15,6 +15,9 @@ export default class PlaylistLoader {
     const { url } = data;
     fetch(url)
       .then(response => response.text())
-      .then(text => console.log(parsePlaylist(text, '/video')));
+      .then(text => parsePlaylist(text, '/video'))
+      .then(details => {
+	      this.hls.trigger(Events.LEVEL_LOADED, { details })
+      });
   }
 }
