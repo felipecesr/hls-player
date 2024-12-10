@@ -1,4 +1,5 @@
 import { Events } from '../events'
+import { waitForEvent } from '../utils'
 
 export default class MSEMediaController {
 	constructor(hls) {
