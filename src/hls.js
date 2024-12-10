@@ -1,12 +1,14 @@
 import { EventEmitter } from 'eventemitter3'
 import { Events } from './events'
 import PlaylistLoader from './loader/playlist-loader'
+import MSEMediaController from './controller/mse-media-controller'
 
 export default class Hls {
   _emitter = new EventEmitter()
 
   constructor() {
     new PlaylistLoader(this)
+    new MSEMediaController(this)
   }
 
   on(event, listener, context) {
