@@ -1,4 +1,6 @@
 import { Events } from '../events'
+import { waitForEvent } from "../utils";
+import TransmuxerInterface from "../demux/transmuxer-interface";
 
 export default class StreamController {
 	constructor(hls) {
@@ -35,5 +37,24 @@ export default class StreamController {
     }
   }
 
-  async _handleFragmentLoadProgress(segmentData) {}
+  async _handleFragmentLoadProgress(segmentData) {
+    const transmuxer = (this.transmuxer =
+      this.transmuxer ||
+      new TransmuxerInterface(
+        this.hls,
+        this._handleTransmuxComplete.bind(this)
+      ));
+    transmuxer.push(new Uint8Array(segmentData));
+    transmuxer.flush();
+    return waitForEvent(this.sourceBuffer, "updateend");
+  }
+
+  _handleTransmuxComplete(segment) {
+    const data = new Uint8Array(
+      segment.initSegment.byteLength + segment.data.byteLength
+    );
+    data.set(segment.initSegment, 0);
+    data.set(segment.data, segment.initSegment.byteLength);
+    this.sourceBuffer.appendBuffer(data);
+  }
 }
